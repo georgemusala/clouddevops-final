@@ -2,17 +2,23 @@
 FROM openjdk:8-jdk
 
 ## Step 1:
-# Deploy war to tomcat
-COPY SecretSanta/target/secret-santa.war /usr/local/opt/tomcat/webapps
+# Create tomcat dir
+WORKDIR /opt/tomcat
 
 ## Step 2:
-# Expose port 80
-EXPOSE 80
+# Install tomcat
+RUN curl -O http://mirror.evowise.com/apache/tomcat/tomcat-8/v8.5.54/bin/apache-tomcat-8.5.54.tar.gz
+RUN tar xvfz apache*.tar.gz
+RUN mv apache-tomcat-8.5.54/* /opt/tomcat/.
 
 ## Step 3:
-# Change dir
-WORKDIR /usr/local/opt/tomcat/bin
+# Deploy war to tomcat
+COPY SecretSanta/target/secret-santa.war /opt/tomcat/webapps
 
-## Step 3:
+## Step 4:
+# Expose port 8080
+EXPOSE 8080
+
+## Step 5:
 # Start Tomcat server
-CMD ["/startup.sh"]
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
