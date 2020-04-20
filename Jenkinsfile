@@ -18,9 +18,10 @@ pipeline {
         }
         stage('Build image') {
             steps {
-                script {
-                    image = docker.build("${IMAGE_TAG}")
-                }
+                sh """
+                export PATH="/usr/local/bin:$PATH"
+                docker build -t ${IMAGE_TAG} . 
+                """
             }
         }
     }
