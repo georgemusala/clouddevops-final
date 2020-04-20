@@ -3,6 +3,7 @@ pipeline {
     environment {
         APPNAME = "secretsanta"
         IMAGE_TAG = "${APPNAME}:${env.BUILD_NUMBER}"
+        DOCKER_CREDS = credentials('docker-hub-credentials')
     }
     tools { 
         maven 'Maven 3.6.3' 
@@ -19,8 +20,17 @@ pipeline {
         stage('Build image') {
             steps {
                 sh """
-                export PATH="/usr/local/bin:$PATH"
                 docker build -t ${IMAGE_TAG} . 
+                docker tag ${IMAGE_TAG} $DOCKER_CREDS_USR/${IMAGE_TAG}
+                docker image ls
+                """
+            }
+        }
+        stage('Push image') {
+            steps {
+                sh """
+                docker login --username $DOCKER_CREDS_USR --password $DOCKER_CREDS_PSW
+                docker push $DOCKER_CREDS_USR/${IMAGE_TAG}
                 """
             }
         }
