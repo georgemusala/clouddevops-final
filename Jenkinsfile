@@ -10,10 +10,17 @@ pipeline {
         jdk 'jdk8' 
     }
     stages {
-        stage('Build') { 
+        stage('Compile') { 
             steps {
                 dir("SecretSanta") {
-                    sh 'mvn -B -DskipTests clean package' 
+                    sh 'mvn -B clean compile' 
+                }
+            }
+        }
+        stage('Build package') { 
+            steps {
+                dir("SecretSanta") {
+                    sh 'mvn -B package' 
                 }
             }
         }
