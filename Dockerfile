@@ -16,9 +16,9 @@ RUN mv apache-tomcat-8.5.54/* /opt/tomcat/.
 COPY SecretSanta/target/secret-santa.war /opt/tomcat/webapps
 
 ## Step 4:
-# Expose port 80
-EXPOSE 80
+# Expose port 8080
+EXPOSE 8080
 
 ## Step 5:
 # Start Tomcat server
-CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+CMD ["/opt/tomcat/bin/catalina.sh","run"]
