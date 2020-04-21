@@ -33,6 +33,13 @@ pipeline {
                 """
             }
         }
+        stage('Test image') {
+            steps {
+                sh """
+                docker run -p 8080:8080 ${IMAGE_TAG}
+                """
+            }
+        }
         stage('Push image') {
             steps {
                 sh """
