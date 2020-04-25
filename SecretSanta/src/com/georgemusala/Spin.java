@@ -26,10 +26,10 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @Scope("session")
 public class Spin {
-	
+
 	@Autowired
 	private ServletContext context;
-	
+
 	@RequestMapping(value="/spin", method=RequestMethod.GET)
 	public ModelAndView showList(HttpSession session)
 	{
@@ -39,82 +39,82 @@ public class Spin {
 		List<String> colorsList = getColorsList();
 		int segmentNumber = getRandomSegment(list.size());
 		setPickedUser(loginData, list.get(segmentNumber));
-		
+
 		model.addObject("segmentNumber",segmentNumber+1);
 		model.addObject("participantsNo",list.size());
 		model.addObject("list",list);
 		model.addObject("colorsList", colorsList);
-		
+
 		return model;
 	}
-	
+
 	public List<String> getUsersList(String currentUser)
 	{
-		String appRoot = context.getRealPath("/WEB-INF/credentials.txt");		
+		String appRoot = context.getRealPath("/WEB-INF/credentials.txt");
 		Path filePath = Paths.get(appRoot);
 		Scanner in = null;
 		List<String> list = new ArrayList<>();
-        try{
-                in = new Scanner(filePath);
-                while(in.hasNext())
-                {
-                    String user = in.next();
-                    if(!currentUser.equals(user))
-                    	list.add(user);
-                    user = in.next();
-                }
-                in.close();
-           }
-        catch (FileNotFoundException e) {
-        			e.printStackTrace();
-                }
-        catch (IOException e) {
-                    e.printStackTrace();              
-            }
-       return list;
+		try{
+				in = new Scanner(filePath);
+				while(in.hasNext())
+				{
+					String user = in.next();
+					if(!currentUser.equals(user))
+						list.add(user);
+					user = in.next();
+				}
+				in.close();
+			}
+		catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+		catch (IOException e) {
+					e.printStackTrace();
+			}
+		return list;
 	}
-	
+
 	public List<String> getColorsList()
 	{
-		String appRoot = context.getRealPath("/WEB-INF/colors.txt");		
+		String appRoot = context.getRealPath("/WEB-INF/colors.txt");
 		Path filePath = Paths.get(appRoot);
 		Scanner in = null;
 		List<String> list = new ArrayList<>();
-        try{
-                in = new Scanner(filePath);
-                while(in.hasNext())
-                {
-                    String color = in.next();
-                    list.add(color);
-                }
-                in.close();
-           }
-        catch (FileNotFoundException e) {
-        			e.printStackTrace();
-                }
-        catch (IOException e) {
-                    e.printStackTrace();              
-            }
-       return list;
+		try{
+				in = new Scanner(filePath);
+				while(in.hasNext())
+				{
+					String color = in.next();
+					list.add(color);
+				}
+				in.close();
+			}
+		catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+		catch (IOException e) {
+					e.printStackTrace();
+			}
+		return list;
 	}
-	
+
 	public void setPickedUser(Credentials loginData, String pickedUser)
 	{
-		String appRoot = context.getRealPath("/WEB-INF/users/"+loginData.getUsername()+"/picked-user.txt");		
+		String appRoot = context.getRealPath("/WEB-INF/users/"+loginData.getUsername()+"/picked-user.txt");
 		File file = new File(appRoot);
-		
+
 		try{
 			PrintWriter writer = new PrintWriter(file);
 			System.out.println(pickedUser);
 			writer.println(pickedUser);
 			writer.close();
-           }
-        catch (FileNotFoundException e) {
-        			e.printStackTrace();
-                }
-        catch (IOException e) {
-                    e.printStackTrace();              
-            }
+			}
+		catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+		catch (IOException e) {
+					e.printStackTrace();
+			}
 	}
 	public int getRandomSegment(int max)
 	{

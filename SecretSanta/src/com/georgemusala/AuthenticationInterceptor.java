@@ -23,23 +23,18 @@ public class AuthenticationInterceptor extends HandlerInterceptorAdapter {
 			   request.getRequestDispatcher("/home").forward(request, response);
 			   return false;
 			}
-			
 			else
 				return true;
 		}
-		
 		else
 		{
 			if(currentRequest.equals("/")||(currentRequest.equals("/home")&&request.getMethod().equals("POST")))
 				return true;
 			else
-			   {
-				   request.getRequestDispatcher("/").forward(request, response);
-				   return false;
+				{
+					request.getRequestDispatcher("/").forward(request, response);
+					return false;
 				}
 		}
-	
 	}
-	
-
 }
