@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: $APPNAME-deployment-$TARGET_ENV
+  labels:
+    app: $APPNAME
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: $APPNAME-$TARGET_ENV
+      role: $TARGET_ENV
+  template:
+    metadata:
+      labels:
+        app: $APPNAME-$TARGET_ENV
+        role: $TARGET_ENV
+    spec:
+      containers:
+      - name: $APPNAME-container
+        image: $DOCKER_CREDS_USR/$IMAGE_TAG
+        ports:
+        - containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080

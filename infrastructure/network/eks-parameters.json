@@ -1,0 +1,34 @@
+[
+	{
+		"ParameterKey": "EnvironmentName",
+		"ParameterValue": "capstone-project"
+	},
+	{
+		"ParameterKey": "NodeInstanceType",
+		"ParameterValue": "t3.medium"
+	},
+	{
+		"ParameterKey": "QSS3BucketName",
+		"ParameterValue": "aws-quickstart"
+	},
+	{
+		"ParameterKey": "QSS3KeyPrefix",
+		"ParameterValue": "quickstart-amazon-eks/"
+	},
+	{
+		"ParameterKey": "QSS3BucketRegion",
+		"ParameterValue": "us-west-2"
+	},
+	{
+		"ParameterKey": "RemoteAccessCIDR",
+		"ParameterValue": "79.116.209.207/32"
+	},
+	{
+		"ParameterKey": "KeyPairName",
+		"ParameterValue": "EC2keypair"
+	},
+	{
+		"ParameterKey": "AdditionalEKSAdminUserArn",
+		"ParameterValue": "arn:aws:iam::533011379483:user/udacity"
+	}
+]
