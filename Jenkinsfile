@@ -76,7 +76,7 @@ pipeline {
           steps {
             withAWS(credentials: "${AWS_CREDENTIALS}", region: "${AWS_REGION}") {
               sh """
-                aws eks update-kubeconfig --region us-west-2 --name ${EKS_CLUSTER} --kubeconfig ~/kubeconfig
+                aws eks update-kubeconfig --name ${EKS_CLUSTER} --kubeconfig ~/kubeconfig
                 current_role="\$(kubectl get services --kubeconfig ~/kubeconfig ${APPNAME}-service --output json | jq -r .spec.selector.role)"
                 if [ "\$current_role" = null ]; then
                     echo "Unable to determine current environment"
@@ -116,7 +116,7 @@ pipeline {
         }
         stage('Test New Environment') {
             environment {
-                service = "${APPNAME}-test-${newEnvironment}"
+                service = "${APPNAME}-test-${newEnv}"
             }
             steps {
                 withAWS(credentials: "${AWS_CREDENTIALS}", region: "${AWS_REGION}") {
