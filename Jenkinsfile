@@ -148,11 +148,11 @@ pipeline {
                     withAWS(credentials: "${AWS_CREDENTIALS}", region: "${AWS_REGION}") {
                         script {
                             sh "envsubst < service.yml | kubectl --kubeconfig ~/kubeconfig apply -f -"
+                            sh """
+                                endpoint_ip="\$(kubectl get services '${service}' --kubeconfig ~/kubeconfig --output json | jq -r '.status.loadBalancer.ingress[0].hostname')"
+                                echo "You can access the webapp using url: http://\$endpoint_ip:8080/secret-santa/"
+                            """
                         }
-                        sh """
-                        endpoint_ip="\$(kubectl get services '${service}' --kubeconfig ~/kubeconfig --output json | jq -r '.status.loadBalancer.ingress[0].hostname')"
-                        echo 'You can access the webapp using url: "http://\$endpoint_ip":8080/secret-santa/'
-                        """
                     }
                 }  
             }
