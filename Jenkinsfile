@@ -125,7 +125,7 @@ pipeline {
                     while true; do
                         endpoint_ip="\$(kubectl get services '${service}' --kubeconfig ~/kubeconfig --output json | jq -r '.status.loadBalancer.ingress[0].hostname')"
                         count=\$(expr \$count + 1)
-                        if curl -m 10 "http://\$endpoint_ip"; then
+                        if curl -m 10 "http://\$endpoint_ip":8080/secret-santa/; then
                             break;
                         fi
                         if [ "\$count" -gt 30 ]; then
