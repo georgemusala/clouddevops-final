@@ -28,7 +28,7 @@ public class LoginController {
 	public ModelAndView loginPage()
 	{
 		ModelAndView model = new ModelAndView("start");
-     
+
 		return model;
 	}
 
