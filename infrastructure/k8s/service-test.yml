@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: $APP-test-$TARGET_ENV
+  name: $APPNAME-test-$TARGET_ENV
   labels:
-    app: $APP
+    app: $APPNAME
 spec:
   type: LoadBalancer
   selector:
