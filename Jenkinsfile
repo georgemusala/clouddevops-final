@@ -6,7 +6,7 @@ pipeline {
         DOCKER_CREDS = credentials('docker-hub-credentials')
         AWS_REGION = 'us-west-2'
         AWS_CREDENTIALS = "udacity"
-        EKS_CLUSTER = "EKS-3UPGZ8SI"
+        EKS_CLUSTER = "EKS-Z5VYNE69"
     }
     tools { 
         maven 'Maven 3.6.3' 
